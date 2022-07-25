@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="ru">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${'Страница пользователя ' + user.getFullName()}"> </title>
+</head>
+<body>
+<div align="center">
+    <h2 th:text="'Пользователь ' + ${user.getFullName()}" th:if="${user.getFullName() != 'null null'}"></h2>
+    <form th:method="POST" th:action="(${user.getFullName() == 'null null'}) ? '/users/new' : ${user.id}">
+        <label for="email">E-mail</label>
+        <input name="email" type="text" id="email" th:value="${user.getEmail()}"/>
+
+        <br>
+
+        <label for="firstName">First name</label>
+        <input name="firstName" type="text" id="firstName" th:value="${user.getFirstName()}"/>
+
+        <br>
+
+        <label for="lastName">Last name</label>
+        <input name="lastName" type="text" id="lastName" th:value="${user.getLastName()}"/>
+
+        <br>
+        <a href="/users">Вернуться к списку пользователей</a>
+        <input type="submit" value="Изменить данные">
+    </form>
+</div>
+</body>
+</html>
