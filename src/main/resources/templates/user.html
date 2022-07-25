@@ -24,7 +24,7 @@
 
         <br>
         <a href="/users">Вернуться к списку пользователей</a>
-        <input type="submit" value="Изменить данные">
+        <input type="submit" th:value="${#httpServletRequest.requestURI.endsWith('new')} ? 'Создать пользователя' : 'Изменить данные'">
     </form>
 </div>
 </body>

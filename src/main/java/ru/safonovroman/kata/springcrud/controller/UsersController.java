@@ -2,9 +2,9 @@ package ru.safonovroman.kata.springcrud.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.view.RedirectView;
 import ru.safonovroman.kata.springcrud.model.User;
 import ru.safonovroman.kata.springcrud.service.UserService;
 
@@ -28,7 +28,7 @@ public class UsersController {
 	}
 
 	@PostMapping(value = "/users/new")
-	public String createUser(ModelMap model,
+	public RedirectView createUser(ModelMap model,
 							 @RequestParam("email") String email,
 							 @RequestParam("firstName") String firstName,
 							 @RequestParam("lastName") String lastName) {
@@ -37,7 +37,7 @@ public class UsersController {
 		user.setFirstName(firstName);
 		user.setLastName(lastName);
 		userService.add(user);
-		return showAllUsers(model);
+		return new RedirectView("/users");
 	}
 
 	@GetMapping(value = "/user/{id}")
@@ -47,7 +47,6 @@ public class UsersController {
 	}
 
 	@PostMapping(value = "/user/{id}")
-	@Transactional
 	public String updateUser(ModelMap model,
 							 @PathVariable("id") Long id,
 							 @RequestParam("email") String email,
@@ -63,8 +62,8 @@ public class UsersController {
 	}
 
 	@GetMapping(value = "/user/{id}/delete")
-	public String deleteUser(ModelMap model, @PathVariable("id") Long id) {
+	public RedirectView deleteUser(ModelMap model, @PathVariable("id") Long id) {
 		userService.delete(id);
-		return showAllUsers(model);
+		return new RedirectView("/users");
 	}
 }

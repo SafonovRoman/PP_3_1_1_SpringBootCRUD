@@ -14,9 +14,6 @@ public class UserDaoImp implements UserDao {
    @PersistenceContext
    private EntityManager entityManager;
 
-//   @Autowired
-//   private TransactionManager transactionManager;
-
    @Override
    @Transactional
    public void add(User user) {
@@ -36,16 +33,12 @@ public class UserDaoImp implements UserDao {
    @Override
    @Transactional
    public void update(User user) {
-      entityManager.persist(user);
+      entityManager.merge(user);
    }
 
    @Override
    @Transactional
    public void delete(Long id) {
-      try {
-         entityManager.remove(getUser(15L));
-      } catch (IllegalArgumentException e) {
-         entityManager.remove(getUser(id));
-      }
+      entityManager.remove(getUser(id));
    }
 }
