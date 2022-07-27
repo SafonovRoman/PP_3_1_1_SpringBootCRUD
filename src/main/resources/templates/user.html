@@ -3,12 +3,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title th:text="${'Страница пользователя ' + user.getFullName()}"> </title>
+    <title th:text="${'Страница пользователя ' + user.getFullName()}"></title>
 </head>
 <body>
 <div align="center">
     <h2 th:text="'Пользователь ' + ${user.getFullName()}" th:if="${user.getFullName() != 'null null'}"></h2>
-    <form th:method="POST" th:action="(${user.getFullName() == 'null null'}) ? '/users/new' : ${user.id}">
+    <form th:method="POST" th:action="(${user.getFullName() == 'null null'}) ? '/users/new' : ${user.id}"
+          modelAttribute="user">
         <label for="email">E-mail</label>
         <input name="email" type="text" id="email" th:value="${user.getEmail()}"/>
 
@@ -24,7 +25,8 @@
 
         <br>
         <a href="/users">Вернуться к списку пользователей</a>
-        <input type="submit" th:value="${#httpServletRequest.requestURI.endsWith('new')} ? 'Создать пользователя' : 'Изменить данные'">
+        <input type="submit"
+               th:value="${#httpServletRequest.requestURI.endsWith('new')} ? 'Создать пользователя' : 'Изменить данные'">
     </form>
 </div>
 </body>
